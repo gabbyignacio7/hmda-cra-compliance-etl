@@ -1516,7 +1516,7 @@ export default function Dashboard() {
                       Branch List Reference
                     </CardTitle>
                     <CardDescription>
-                      Using built-in the bank branch list (48 branches)
+                      Using the built-in sample branch list (48 branches)
                     </CardDescription>
                   </CardHeader>
                   <CardContent>

@@ -1,5 +1,5 @@
 # HMDA/CRA Tool Test Files
-## the bank - Sample Data Package
+## Sample Data Package
 
 Generated: November 26, 2024
 Purpose: Testing and demonstration of the HMDA/CRA ETL Tool
