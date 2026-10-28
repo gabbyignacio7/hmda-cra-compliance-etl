@@ -1,0 +1,9 @@
+# Configuration for issue templates
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Questions & Help
+    url: https://github.com/gabbyignacio7/hmda-cra-compliance-etl/discussions
+    about: Ask questions or get help using the tool
+  - name: 📚 Documentation
+    url: https://github.com/gabbyignacio7/hmda-cra-compliance-etl/blob/main/client/public/USER_MANUAL.md
+    about: Check the user manual first

@@ -1,0 +1,125 @@
+# =============================================================================
+# CI Pipeline - Runs automatically on every Pull Request
+# =============================================================================
+# This workflow checks your code for errors, runs tests, and verifies the build.
+# If something fails, the AI assistant can help you fix it!
+# =============================================================================
+
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# Cancel previous runs if you push new changes
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ===========================================================================
+  # Step 1: Check Code Quality
+  # ===========================================================================
+  quality:
+    name: ✅ Code Quality
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Get code
+        uses: actions/checkout@v6
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📚 Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: 🔍 Check TypeScript
+        run: npm run typecheck
+        continue-on-error: false
+
+      - name: 🧹 Check code style (ESLint)
+        run: npm run lint
+
+      - name: 💅 Check formatting (Prettier)
+        run: npm run format:check
+
+  # ===========================================================================
+  # Step 2: Run Tests
+  # ===========================================================================
+  test:
+    name: 🧪 Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Get code
+        uses: actions/checkout@v6
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📚 Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: 🧪 Run tests
+        run: npm run test:ci
+
+      - name: 📊 Upload test coverage
+        uses: codecov/codecov-action@v5
+        if: always()
+        continue-on-error: true
+        with:
+          files: ./coverage/lcov.info
+
+  # ===========================================================================
+  # Step 3: Verify Build Works
+  # ===========================================================================
+  build:
+    name: 🏗️ Build
+    runs-on: ubuntu-latest
+    needs: [quality, test]
+    
+    steps:
+      - name: 📥 Get code
+        uses: actions/checkout@v6
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📚 Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: 🏗️ Build project
+        run: npm run build:client
+        env:
+          GITHUB_PAGES: true
+
+      - name: ✅ Verify build succeeded
+        run: |
+          if [ -d "dist/public" ]; then
+            echo "✅ Build successful!"
+            echo "📁 Files created:"
+            ls -la dist/public
+          else
+            echo "❌ Build failed - no output directory"
+            exit 1
+          fi
+
+      # Save the build for deployment
+      - name: 💾 Save build
+        uses: actions/upload-artifact@v6
+        with:
+          name: website-build
+          path: dist/public
+          retention-days: 30

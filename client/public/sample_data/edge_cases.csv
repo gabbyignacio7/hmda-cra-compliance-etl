@@ -1,0 +1,10 @@
+ApplNumb,Last Name,Loan Type,Action Taken,Loan Amount,Note Date,Revenue,Affiliate,Address,City,State,Zip,Comment,Column14
+EDGE-001,MinAmount,Business,Originated,1,11/15/2024,50000,Main Branch,123 Main St,Springfield,GA,30301,Minimum loan amount ($1),
+EDGE-002,MaxAmount,Business,Originated,99999999,11/16/2024,99999999,Main Branch,456 Oak Ave,Franklin,GA,30302,Very large amounts,
+EDGE-003,ZipWithDash,Business,Originated,75000,11/17/2024,250000,Main Branch,789 Pine Rd,Madison,GA,30303-1234,9-digit ZIP with dash (valid),
+EDGE-004,ZipNoDash,Business,Originated,80000,11/18/2024,260000,Main Branch,321 Elm St,Georgetown,GA,303041234,9-digit ZIP no dash (valid),
+EDGE-005,ShortZip,Business,Originated,85000,11/19/2024,270000,Main Branch,654 Maple Dr,Springfield,GA,30304,Standard 5-digit ZIP,
+EDGE-006,DCState,Business,Originated,90000,11/20/2024,280000,Main Branch,987 Cedar Ln,Washington,DC,20001,Washington DC as state,
+EDGE-007,LongNames,VeryLongLastNameThatIsUnusuallyLengthyForTesting,Business,Originated,95000,11/21/2024,290000,Main Branch,147 Birch Ct,VeryLongCityNameForTesting,GA,30301,Testing long text fields,
+EDGE-008,SpecialChars,O'Brien-Smith,Business,Originated,100000,11/22/2024,300000,Main Branch,258 Walnut Way,Springfield,GA,30302,Special characters in name,
+EDGE-009,AllCaps,JOHNSON,BUSINESS,ORIGINATED,105000,11/23/2024,310000,MAIN BRANCH,369 SPRUCE ST,SPRINGFIELD,GA,30303,ALL CAPS TEXT,

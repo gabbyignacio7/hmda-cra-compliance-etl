@@ -1,0 +1,23 @@
+# =============================================================================
+# CODEOWNERS - Defines who reviews what
+# =============================================================================
+# When someone creates a PR, GitHub will automatically request reviews
+# from the people listed here based on what files were changed.
+#
+# Format: <file-pattern> <github-username-or-team>
+#
+# Examples:
+#   * @default-reviewer                    - Reviews everything
+#   /client/ @frontend-person              - Reviews frontend code
+#   /server/ @backend-person               - Reviews backend code
+#   *.yml @devops-person                   - Reviews config files
+# =============================================================================
+
+# Default: Request review from the repo owner for all changes
+* @gabbyignacio7
+
+# ETL/Data processing code - critical, always review
+/client/src/lib/etl/ @gabbyignacio7
+
+# GitHub Actions workflows - important for deployments
+/.github/workflows/ @gabbyignacio7

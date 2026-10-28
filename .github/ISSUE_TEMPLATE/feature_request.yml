@@ -1,0 +1,62 @@
+# =============================================================================
+# Feature Request Template - Suggest improvements
+# =============================================================================
+name: ✨ Feature Request
+description: Have an idea to make this better? Tell us!
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an improvement!
+        Please describe your idea below.
+
+  - type: textarea
+    id: feature
+    attributes:
+      label: What would you like?
+      description: Describe the feature you'd like to see
+      placeholder: "It would be great if I could..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Why do you need this feature?
+      placeholder: "Right now I have to manually... which takes time because..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: How do you imagine it working?
+      description: If you have ideas about how this could work, share them!
+      placeholder: "Maybe there could be a button that..."
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: How important is this to you?
+      options:
+        - Nice to have
+        - Would help my workflow
+        - Important for my work
+        - Critical - blocking my work
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Anything else?
+      description: Screenshots, examples, or additional context
+    validations:
+      required: false

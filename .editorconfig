@@ -1,0 +1,38 @@
+# =============================================================================
+# EditorConfig - Keeps code formatting consistent across editors
+# =============================================================================
+# This file helps everyone's editor use the same settings.
+# Most code editors (VS Code, Cursor, etc.) read this automatically.
+# =============================================================================
+
+# This is the top-level config
+root = true
+
+# Default settings for all files
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# JavaScript, TypeScript, JSON
+[*.{js,jsx,ts,tsx,json}]
+indent_size = 2
+
+# Markdown - trailing whitespace can be meaningful
+[*.md]
+trim_trailing_whitespace = false
+
+# YAML files
+[*.{yml,yaml}]
+indent_size = 2
+
+# Shell scripts
+[*.sh]
+indent_size = 2
+
+# Package files
+[{package.json,package-lock.json}]
+indent_size = 2

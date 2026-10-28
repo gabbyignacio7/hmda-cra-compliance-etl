@@ -1,0 +1,8 @@
+ApplNumb,Last Name,Loan Type,Action Taken,Loan Amount,Note Date,Revenue,Affiliate,Address,City,State,Zip,Comment,Column14
+NOV-001,November1,Business,Originated,75000,11/01/2024,250000,Main Branch,100 First St,Springfield,GA,30301,Should be included (Nov 2024),
+NOV-002,November2,Business,Originated,80000,11/15/2024,260000,Main Branch,200 Mid St,Springfield,GA,30301,Should be included (Nov 2024),
+NOV-003,November3,Business,Originated,85000,11/30/2024,270000,Main Branch,300 Last St,Springfield,GA,30301,Should be included (Nov 2024),
+OCT-001,October1,Business,Originated,90000,10/15/2024,280000,Main Branch,400 Old St,Springfield,GA,30301,Should be EXCLUDED (Oct 2024),
+OCT-002,October2,Business,Originated,95000,10/31/2024,290000,Main Branch,500 Past St,Springfield,GA,30301,Should be EXCLUDED (Oct 2024),
+DEC-001,December1,Business,Originated,100000,12/01/2024,300000,Main Branch,600 Next St,Springfield,GA,30301,Should be EXCLUDED (Dec 2024),
+SEP-001,September1,Business,Originated,105000,09/15/2024,310000,Main Branch,700 Way St,Springfield,GA,30301,Should be EXCLUDED (Sep 2024),

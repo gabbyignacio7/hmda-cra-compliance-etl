@@ -1,0 +1,69 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# Environment files (keep .env.example)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# IDE and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Local cache and temp files
+.local/
+.cache/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Server build
+server/public
+
+# Vite temp files
+vite.config.ts.*
+
+# Archives
+*.tar.gz
+*.zip
+
+# Databricks (legacy)
+.databricks
+
+# Data directory (client exports, templates, media, test fixtures, reference)
+# Contains PII and large binary files — never commit
+data/
+
+# Large media assets served at runtime (not bundled)
+client/public/assets/learning-center/Audio/
+client/public/assets/learning-center/Video_Clips/
+
+# Generated code delivery (regenerate with: node scripts/generate-code-delivery.js)
+docs/CODE_DELIVERY.txt
+
+# Misc
+*.pem
+.vercel
+tmpclaude-*

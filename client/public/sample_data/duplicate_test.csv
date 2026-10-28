@@ -1,0 +1,10 @@
+ApplNumb,Last Name,Loan Type,Action Taken,Loan Amount,Note Date,Revenue,Affiliate,Address,City,State,Zip,Comment,Column14
+DUP-001,UniqueRecord,Business,Originated,75000,11/15/2024,250000,Main Branch,123 Main St,Springfield,GA,30301,No duplicates,
+DUP-002,FirstInstance,Business,Originated,80000,11/16/2024,260000,Main Branch,456 Oak Ave,Franklin,GA,30302,First occurrence,
+DUP-002,DuplicateA,Business,Originated,85000,11/17/2024,270000,North Branch,789 Pine Rd,Madison,GA,30303,DUPLICATE of DUP-002,
+DUP-002,DuplicateB,Business,Originated,90000,11/18/2024,280000,South Branch,321 Elm St,Georgetown,GA,30304,DUPLICATE of DUP-002,
+DUP-003,AnotherUnique,Business,Originated,95000,11/19/2024,290000,East Branch,654 Maple Dr,Springfield,GA,30301,No duplicates,
+DUP-004,TripleFirst,Business,Originated,100000,11/20/2024,300000,Main Branch,987 Cedar Ln,Franklin,GA,30302,First of 3 duplicates,
+DUP-004,TripleSecond,Business,Originated,105000,11/21/2024,310000,North Branch,147 Birch Ct,Madison,GA,30303,DUPLICATE 1 of DUP-004,
+DUP-004,TripleThird,Business,Originated,110000,11/22/2024,320000,South Branch,258 Walnut Way,Georgetown,GA,30304,DUPLICATE 2 of DUP-004,
+DUP-005,LastUnique,Business,Originated,115000,11/23/2024,330000,East Branch,369 Spruce St,Springfield,GA,30301,No duplicates,

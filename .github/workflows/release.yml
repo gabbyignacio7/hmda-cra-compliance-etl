@@ -1,0 +1,104 @@
+# =============================================================================
+# Automatic Releases - Creates releases when you're ready
+# =============================================================================
+# To create a release:
+# 1. Go to GitHub → Actions → "Create Release"
+# 2. Click "Run workflow"
+# 3. Choose: patch (bug fix), minor (new feature), or major (big changes)
+# 4. Click the green "Run workflow" button
+#
+# The workflow will automatically:
+# - Update the version number
+# - Create a changelog
+# - Create a GitHub release
+# - Deploy to production
+# =============================================================================
+
+name: 📦 Create Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'Type of release'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch   # Bug fixes (1.0.0 → 1.0.1)
+          - minor   # New features (1.0.0 → 1.1.0)
+          - major   # Breaking changes (1.0.0 → 2.0.0)
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: 📦 Create Release
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Get code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📚 Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: 🧪 Run tests
+        run: npm run test:ci
+
+      - name: ⚙️ Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: 📝 Bump version
+        id: version
+        run: |
+          npm version ${{ github.event.inputs.release_type }} -m "release: v%s 🚀"
+          echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: 🏷️ Push version tag
+        run: git push origin main --tags
+
+      - name: 📋 Generate changelog
+        id: changelog
+        run: |
+          # Get commits since last tag
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          if [ -n "$PREV_TAG" ]; then
+            CHANGES=$(git log $PREV_TAG..HEAD --pretty=format:"- %s" --no-merges)
+          else
+            CHANGES=$(git log --pretty=format:"- %s" --no-merges -20)
+          fi
+          
+          # Save to file for release
+          echo "## What's Changed" > RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "$CHANGES" >> RELEASE_NOTES.md
+          
+          cat RELEASE_NOTES.md
+
+      - name: 🎉 Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: Release v${{ steps.version.outputs.version }}
+          body_path: RELEASE_NOTES.md
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ✅ Release complete!
+        run: |
+          echo "🎉 Release v${{ steps.version.outputs.version }} created!"
+          echo "📦 The deploy workflow will now run automatically."

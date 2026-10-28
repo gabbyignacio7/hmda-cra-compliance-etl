@@ -1,0 +1,105 @@
+# =============================================================================
+# Deploy to GitHub Pages - Runs automatically when you merge to main
+# =============================================================================
+# This workflow deploys your app to the live website automatically.
+# You don't need to do anything - just merge your PR and it deploys!
+# =============================================================================
+
+name: 🚀 Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:  # Allows manual deploy from GitHub UI
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false  # Don't cancel deploys midway
+
+jobs:
+  # ===========================================================================
+  # Build the Website
+  # ===========================================================================
+  build:
+    name: 🏗️ Build for Production
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Get code
+        uses: actions/checkout@v6
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📚 Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: 🧪 Run tests (safety check)
+        run: npm run test:ci
+
+      - name: 🔧 Determine base path for GitHub Pages
+        id: base
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Check if repo is private - private repos use root path "/"
+          # Public repos use "/<repo-name>/" path
+          VISIBILITY=$(gh repo view ${{ github.repository }} --json visibility -q '.visibility')
+          if [ "$VISIBILITY" = "PRIVATE" ]; then
+            echo "path=/" >> $GITHUB_OUTPUT
+            echo "📦 Private repo detected - using root base path"
+          else
+            REPO_NAME=$(echo ${{ github.repository }} | cut -d'/' -f2)
+            echo "path=/${REPO_NAME}/" >> $GITHUB_OUTPUT
+            echo "📦 Public repo detected - using /${REPO_NAME}/ base path"
+          fi
+
+      - name: 🏗️ Build website
+        run: npm run build:client
+        env:
+          GITHUB_PAGES: true
+          GITHUB_PAGES_BASE: ${{ steps.base.outputs.path }}
+
+      - name: 📄 Setup 404 page for SPA
+        run: cp dist/public/index.html dist/public/404.html
+
+      - name: 📄 Add .nojekyll for GitHub Pages
+        run: touch dist/public/.nojekyll
+
+      - name: ⚙️ Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: 📦 Package for deployment
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: './dist/public'
+
+  # ===========================================================================
+  # Deploy to Live Website
+  # ===========================================================================
+  deploy:
+    name: 🌐 Deploy to Live Site
+    runs-on: ubuntu-latest
+    needs: build
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: ✅ Deployment complete!
+        run: |
+          echo "🎉 Your website is now live!"
+          echo "🔗 URL: ${{ steps.deployment.outputs.page_url }}"

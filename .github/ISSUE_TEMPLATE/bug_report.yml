@@ -1,0 +1,89 @@
+# =============================================================================
+# Bug Report Template - Makes it easy to report issues
+# =============================================================================
+name: 🐛 Bug Report
+description: Something isn't working? Report it here!
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this bug! 
+        Please fill out the form below so we can help fix it.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the problem in simple terms
+      placeholder: "When I tried to upload a file, I got an error message..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should have happened?
+      description: What did you expect to happen instead?
+      placeholder: "The file should have uploaded and shown the data..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: How can we recreate this problem?
+      placeholder: |
+        1. Go to the upload page
+        2. Select a LaserPro file
+        3. Click 'Process'
+        4. See error
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browser are you using?
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: file-type
+    attributes:
+      label: What type of file were you working with? (if applicable)
+      options:
+        - Not applicable
+        - LaserPro export
+        - Encompass export
+        - Supplemental file
+        - Other
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If you can, paste a screenshot of the error (drag and drop works!)
+      placeholder: Drag and drop your screenshot here
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Anything else?
+      description: Any other details that might help us fix this
+    validations:
+      required: false
